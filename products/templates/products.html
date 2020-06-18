@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Products Page{% endblock %}
+
+{% block page_heading %}Products{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    {% for product in products %}
+        <div class="col panel panel-default">
+            <div class="panel-body">
+                <div class="product-image" style="background-image: url('{{ MEDIA_URL }}{{ product.image }}')"></div>
+                <h3>{{ product.name }}</h3>
+                <p class="product-description">{{ product.description }}</p>
+                <p>{{ product.price }}</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
