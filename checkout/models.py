@@ -4,7 +4,7 @@ from products.models import Product
 # Create your models here.
 
 
-class Order(models.model):
+class Order(models.Model):
     full_name = models.CharField(max_length=40, blank=False)
     phone_number = models.CharField(max_length=20, blank=False)
     country = models.CharField(max_length=40, blank=False)
