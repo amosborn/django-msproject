@@ -6,6 +6,7 @@ from products.models import Product
 import stripe
 from django.conf import settings
 from django.utils import timezone
+from django.contrib import mesasges
 
 # Create your views here.
 
@@ -34,3 +35,13 @@ def checkout(request):
                     quantity=quantity
                 )
                 order_line_item.save()
+
+                try:
+                    customer = stripe.Charge.create(
+                        amount=int(total * 100),
+                        currency="EUR",
+                        description=request.user.email,
+                        card=payment_form.cleaned_data['stripe_id']
+                        )
+                except stripe.error.CardError:
+                    messages.error(request, "Your card was declined!")
