@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.decorators import login_required
 from .forms import OrderForm, MakePaymentForm
 from .models import OrderLineItem
@@ -6,7 +6,7 @@ from products.models import Product
 import stripe
 from django.conf import settings
 from django.utils import timezone
-from django.contrib import mesasges
+from django.contrib import messages
 
 # Create your views here.
 
@@ -44,4 +44,11 @@ def checkout(request):
                         card=payment_form.cleaned_data['stripe_id']
                         )
                 except stripe.error.CardError:
-                    messages.error(request, "Your card was declined!")
+                    messages.error(request, "Your card was declined")
+
+                if customer.paid:
+                    messages.error(request, "You have successfully paid")
+                    request.session['cart'] = {}
+                    return redirect(reverse('products'))
+                else:
+                    messages.error(request, "Unable to take payment")
