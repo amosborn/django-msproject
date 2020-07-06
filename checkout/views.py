@@ -52,3 +52,11 @@ def checkout(request):
                     return redirect(reverse('products'))
                 else:
                     messages.error(request, "Unable to take payment")
+
+            else:
+                print(payment_form.errors)
+                messages.error(request,
+                               "We were unable to take a payment with this card")
+        else:
+            payment_form = MakePaymentForm()
+            order_form = OrderForm()
