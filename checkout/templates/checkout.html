@@ -11,3 +11,27 @@
 </script>
 <script type="text/javascript" src="{% static 'js/stripe.js' %}"></script>
 {% endblock %}
+
+{% block content %}
+
+<div class="row">
+    {% for product in products %}
+        <div class="col panel panel-default">
+            <div class="panel-body">
+            
+                <div class="product-image" style="background-image: url('{{ MEDIA_URL }}{{ item.product.image }}')"></div>
+                <h3>{{ item.product.name }}</h3>
+                <p class="product-description">{{ item.product.description }}</p>
+                <p>{{ item.quantity }}</p>
+                <p>{{ item.product.price }}</p>
+                
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<div class="row">
+    <p>Total</p>
+    <p><span class="glyphicon glyphicon-euro" aria-hidden="true"></span>{{ total }}</p>
+</div>
+
+{% endblock %}
