@@ -13,11 +13,11 @@ from django.contrib import messages
 stripe.api_key = settings.STRIPE_SECRET
 
 
-@login_required
+@login_required()
 def checkout(request):
+    order_form = OrderForm(request.POST)
+    payment_form = MakePaymentForm(request.POST)
     if request.method == 'POST':
-        order_form = OrderForm(request.POST)
-        payment_form = MakePaymentForm(request.POST)
 
         if order_form.is_valid() and payment_form.is_valid():
             order = order_form.save(commit=False)
