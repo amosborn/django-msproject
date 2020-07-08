@@ -10,12 +10,13 @@
     {% for product in products %}
         <div class="col panel panel-default">
             <div class="panel-body">
+            
                 <div class="product-image" style="background-image: url('{{ MEDIA_URL }}{{ product.image }}')"></div>
                 <h3>{{ product.name }}</h3>
                 <p class="product-description">{{ product.description }}</p>
                 <p>{{ product.price }}</p>
 
-                <form method="post" action="{% url 'add_to_cart' product.id %}">
+                <form method="post" action="{% url 'add_to_cart' product.id  %}">
                     {% csrf_token %}
                     <div class="input-group">
                         <input name="quantity" type="number" min="1" max="999" class="form-control" placeholder="Quantity">
