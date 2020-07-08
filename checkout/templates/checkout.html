@@ -1,6 +1,12 @@
-{% extends base %}
+{% extends 'base.html' %}
+
 {% load static from staticfiles %}
+
 {% load bootstrap_tags %}
+
+{% block page_title %}Checkout Page{% endblock %}
+
+{% block page_heading %}Checkout{% endblock %}
 
 {% block head_js %}
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
@@ -41,6 +47,8 @@
         <div class="alert-message block-message error" id="stripe-error-message"></div>
     </div>
 
+    {% csrf_token %}
+
     <div class="form-group col-md-6">
         {{ order_form | as_bootstrap }}
     </div>
@@ -49,7 +57,7 @@
         {{ payment_form | as_bootstrap }}
     </div>
 
-    {% csrf_token %}
+    
     <div class="form-group col-md-12">
         <input class=" btn btn-primary" id="submit_payment_btn" name="commit" type="submit" value="Submit Payment">
     </div>
