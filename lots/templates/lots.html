@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block page_title %}All Lots Page{% endblock %}
+
+{% block page_heading %}All Lots{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    {% for lot in lots %}
+        <div class="col panel panel-default">
+            <div class="panel-body">
+            
+                <div class="product-image" style="background-image: url('{{ MEDIA_URL }}{{ lot.image }}')"></div>
+                <h3>{{ lot.name }}</h3>
+                <p class="product-description">{{ lot.description }}</p>
+                <p></p>
+                
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
