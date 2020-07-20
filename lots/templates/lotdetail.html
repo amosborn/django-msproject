@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block page_title %}Lot Detail Page{% endblock %}
+
+{% block page_heading %}Lot Detail{% endblock %}
+
+{% block content %}
+
+<div class="row">
+        <div class="col panel panel-default">
+            <div class="panel-body">
+            
+                <div class="product-image" style="background-image: url('{{ MEDIA_URL }}{{ lot.image }}')"></div>
+                <h3>{{ lot.name }}</h3>
+                <p class="product-description">{{ lot.description }}</p>
+                
+            </div>
+        </div>
+</div>
+
+{% endblock %}
