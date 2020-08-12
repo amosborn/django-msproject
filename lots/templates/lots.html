@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
-{% block page_title %}All Lots Page{% endblock %}
+{% block page_title %}All Current Lots Page{% endblock %}
 
-{% block page_heading %}All Lots{% endblock %}
+{% block page_heading %}All Current Lots{% endblock %}
 
 {% block content %}
 
@@ -15,7 +15,7 @@
                 <h3>{{ lot.name }}</h3>
                 <p class="lot-description">{{ lot.description }}</p>
                 <p><a href="{% url 'lot_detail' lot.id %}"  class="btn btn-default">Lot detail</a></p>
-                
+
             </div>
         </div>
     {% endfor %}
