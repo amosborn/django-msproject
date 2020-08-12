@@ -24,13 +24,13 @@ from cart import urls as cart_urls
 from checkout import urls as checkout_urls
 from home import urls as home_urls
 from products.views import all_products
-from lots.views import all_lots
+from lots.views import all_current_lots
 from django.views import static
 from .settings import MEDIA_ROOT
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', all_lots, name="index"),
+    url(r'^$', all_current_lots, name="index"),
     url(r'^accounts/', include(accounts_urls)),
     url(r'^products/', include(product_urls)),
     url(r'^lots/', include(lot_urls)),
