@@ -15,10 +15,10 @@ def cart_contents(request):
             q = 0
         else:
             q = quantity
-        product = get_object_or_404(Product, pk=id)
-        total += q * product.price
-        product_count += q
-        cart_items.append({'id': id, 'quantity': q, 'product': product})
+            product = get_object_or_404(Product, pk=id)
+            total += q * product.price
+            product_count += q
+            cart_items.append({'id': id, 'quantity': q, 'product': product})
 
     return {'cart_items': cart_items, 'total': total,
             'product_count': product_count}
