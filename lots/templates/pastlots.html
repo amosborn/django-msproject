@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block page_title %}All Past Lots Page{% endblock %}
+
+{% block page_heading %}All Past Lots{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    {% for lot in pastlots %}
+        <div class="col panel panel-default">
+            <div class="panel-body">
+            
+                <div class="lot-image" style="background-image: url('{{ MEDIA_URL }}{{ lot.image }}')"></div>
+                <h3>{{ lot.name }}</h3>
+                <p class="lot-description">{{ lot.description }}</p>
+                <p>Winning bid: </p>
+                <p>Winning bidder: </p>
+                
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
