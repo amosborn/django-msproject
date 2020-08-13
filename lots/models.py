@@ -31,9 +31,9 @@ class Auction(models.Model):
 class Bid(models.Model):
     """Auction bid model"""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    lot = models.ForeignKey(Lot, on_delete=models.CASCADE)
+    auction = models.ForeignKey(Auction, on_delete=models.CASCADE, null=True)
     bid_amount = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     bid_time = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return "Bid: " + str(self.pk) + " Lot: " + str(self.lot.name)
+        return "Bid: " + str(self.pk) + " Lot: " + str(self.auction.lot.name)
