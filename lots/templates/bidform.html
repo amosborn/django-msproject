@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load bootstrap_tags %}
+
+{% block page_title %}Bid Form Page{% endblock %}
+
+{% block page_heading %}Bid Form{% endblock %}
+
+{% block content %}
+
+<div class="row">
+        <div class="col panel panel-default">
+            <div class="panel-body">
+            
+                <div class="lot-image" style="background-image: url('{{ MEDIA_URL }}{{ auction.lot.image }}')"></div>
+                <p>Lot: {{ auction.lot.pk }}</p>
+                <h3>{{ auction.lot.name }}</h3>
+                <p class="lot-description">{{ auction.lot.description }}</p>
+                <p>Current bid is  {{ latest_bid.bid_amount}}</p>
+                
+                <form method="POST" action="/" >
+                    {% csrf_token %}
+                    {{ bid_form | as_bootstrap }}
+                    <button type="submit" class="btn btn-info">Place Bid</button>
+                </form>
+
+            </div>
+        </div>
+</div>
+
+{% endblock %}
