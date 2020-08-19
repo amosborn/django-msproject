@@ -8,4 +8,34 @@
 
 <p>{{ user.email }}</p>
 
+<div class="row">
+    <h4>Current auctions you are bidding on:</h4>
+    {% for auction in current_auctions %}
+        <div class="col panel panel-default">
+            <div class="panel-body">
+            
+                <div class="lot-image" style="background-image: url('{{ MEDIA_URL }}{{ auction.lot.image }}')"></div>
+                <h3>{{ auction.lot.name }}</h3>
+                <p>Winning bid: {{ auction.winning_bid }}</p>
+                <p>Winning bidder: {{ auction.winning_bidder }} </p>
+                
+            </div>
+        </div>
+    {% endfor %}
+
+    <h4>Past auctions you have won:</h4>
+    {% for auction in past_auctions %}
+        <div class="col panel panel-default">
+            <div class="panel-body">
+            
+                <div class="lot-image" style="background-image: url('{{ MEDIA_URL }}{{ auction.lot.image }}')"></div>
+                <h3>{{ auction.lot.name }}</h3>
+                <p>Winning bid: {{ auction.winning_bid }}</p>
+                <p>Winning bidder: {{ auction.winning_bidder }} </p>
+                
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
 {% endblock %}
