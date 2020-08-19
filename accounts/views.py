@@ -3,7 +3,8 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from accounts.forms import UserLoginForm, UserRegistrationForm
-
+from lots.models import Auction
+from django.utils import timezone
 
 # Create your views here.
 
@@ -66,11 +67,16 @@ def registration(request):
                                "Unable to register your account at this time")
     else:
         registration_form = UserRegistrationForm()
-    return render(request, 'registration.html', {
-        "registration_form": registration_form})
+    return render(request, 'registration.html',
+                  {"registration_form": registration_form})
 
 
 def user_profile(request):
     """User's profile page"""
     user = User.objects.get(email=request.user.email)
-    return render(request, 'profile.html', {"profile": user})
+    current_auctions = Auction.objects.filter(winning_bidder=request.user.pk,
+                                              auction_end_time__gte=timezone.now())
+    past_auctions = Auction.objects.filter(winning_bidder=request.user.pk,
+                                           auction_end_time__lt=timezone.now())                                  
+    return render(request, 'profile.html', {"profile": user,
+                  'current_auctions': current_auctions, 'past_auctions': past_auctions})
