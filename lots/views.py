@@ -21,14 +21,20 @@ def all_current_lots(request):
 def all_past_lots(request):
     """Return all past auction lots"""
     now = timezone.now()
-    pastlots = Lot.objects.filter(auction_end_time__lt=now)
-    return render(request, 'pastlots.html', {'pastlots': pastlots})
+    sold_auctions = Auction.objects.filter(auction_end_time__lt=now).exclude(winning_bidder=1)
+    unsold_auctions = Auction.objects.filter(auction_end_time__lt=now, winning_bidder=1)
+    return render(request, 'pastlots.html', {'sold_auctions': sold_auctions,
+                  'unsold_auctions': unsold_auctions})
 
 
 def lot_detail(request, pk):
     """Return individual lot object and render it to lotdetail.html page"""
     lot = get_object_or_404(Lot, pk=pk)
     return render(request, 'lotdetail.html', {'lot': lot})
+
+
+def past_lot_detail(request, pk):
+    """Return individual expired lot with auction results"""
 
 
 @login_required
@@ -38,7 +44,7 @@ def auction(request, auction_id):
     auction = get_object_or_404(Auction, id=auction_id)
     bid = Bid.objects.filter(auction=auction_id).order_by('-bid_time')
     bid_form = BidForm
-    
+
     if auction:
         if bid:
             latest_bid = bid[0]
