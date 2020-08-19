@@ -7,15 +7,31 @@
 {% block content %}
 
 <div class="row">
-    {% for lot in pastlots %}
+    {% for auction in sold_auctions %}
         <div class="col panel panel-default">
             <div class="panel-body">
             
-                <div class="lot-image" style="background-image: url('{{ MEDIA_URL }}{{ lot.image }}')"></div>
-                <h3>{{ lot.name }}</h3>
-                <p class="lot-description">{{ lot.description }}</p>
-                <p>Winning bid: </p>
-                <p>Winning bidder: </p>
+                <div class="lot-image" style="background-image: url('{{ MEDIA_URL }}{{ auction.lot.image }}')"></div>
+                <h3>{{ auction.lot.name }}</h3>
+                <p class="lot-description">{{ auction.lot.description }}</p>
+                <p>Winning bid: {{ auction.winning_bid }}</p>
+                <p>Winning bidder: {{ auction.winning_bidder }} </p>
+                <p>Number of bids: {{ auction.number_of_bids}}</p>
+                
+            </div>
+        </div>
+    {% endfor %}
+
+    {% for auction in unsold_auctions %}
+        <div class="col panel panel-default">
+            <div class="panel-body">
+            
+                <div class="lot-image" style="background-image: url('{{ MEDIA_URL }}{{ auction.lot.image }}')"></div>
+                <h3>{{ auction.lot.name }}</h3>
+                <p class="lot-description">{{ auction.lot.description }}</p>
+                <p>Winning bid: {{ auction.winning_bid }}</p>
+                <p>Winning bidder: Not sold </p>
+                <p>Number of bids: {{ auction.number_of_bids}}</p>
                 
             </div>
         </div>
