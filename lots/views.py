@@ -27,14 +27,29 @@ def all_past_lots(request):
                   'unsold_auctions': unsold_auctions})
 
 
-def lot_detail(request, pk):
-    """Return individual lot object and render it to lotdetail.html page"""
-    lot = get_object_or_404(Lot, pk=pk)
-    return render(request, 'lotdetail.html', {'lot': lot})
-
-
 def past_lot_detail(request, pk):
     """Return individual expired lot with auction results"""
+
+
+def lot_detail(request, lot_id):
+    """Render lot detail page and create auction with default values"""
+
+    lot = get_object_or_404(Lot, id=lot_id)
+    auction = Auction.objects.filter(lot=lot_id)
+
+    if lot:
+        if auction:
+            auction = auction
+        else:
+            auction_default = Auction()
+            auction_default.lot = lot
+            auction_default.number_of_bids = 0
+            auction_default.winning_bidder = get_object_or_404(User, id=1)
+            auction_default.winning_bid = 0.00
+            auction_default.auction_end_time = lot.auction_end_time
+            auction_default.save()
+
+    return render(request, 'lotdetail.html', {'lot': lot})
 
 
 @login_required
