@@ -18,6 +18,7 @@
                 <h3>{{ auction.lot.name }}</h3>
                 <p>Current bid: {{ auction.winning_bid }}</p>
                 <p>Current bidder: {{ auction.winning_bidder }} </p>
+                <p><a href="{% url 'auction' auction.id %}"  class="btn btn-default">Increase your bid</a></p>
                 
             </div>
         </div>
@@ -32,7 +33,7 @@
                 <h3>{{ auction.lot.name }}</h3>
                 <p>Winning bid: {{ auction.winning_bid }}</p>
                 <p>Winning bidder: {{ auction.winning_bidder }} </p>
-                
+
             </div>
         </div>
     {% endfor %}
