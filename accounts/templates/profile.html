@@ -33,7 +33,15 @@
                 <h3>{{ auction.lot.name }}</h3>
                 <p>Winning bid: {{ auction.winning_bid }}</p>
                 <p>Winning bidder: {{ auction.winning_bidder }} </p>
-
+                <form method="post" action="{% url 'add_auction_to_cart' auction.id  %}">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input name="quantity" type="number" min="1" max="1" class="form-control" placeholder="Quantity">
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="submit">Add</button>
+                        </span>
+                    </div>
+                </form>
             </div>
         </div>
     {% endfor %}
