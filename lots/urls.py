@@ -6,4 +6,5 @@ urlpatterns = [
     url(r'^pastauctions/$', all_past_lots, name='past_lots'),
     url(r'^(?P<lot_id>\d+)/$', lot_detail, name='lot_detail'),
     url(r'^(?P<auction_id>\d+)/edit/$', auction, name='auction'),
+    url(r'^(?P<auction_id>\d+)/edit/$', bid, name='bid'),
 ]

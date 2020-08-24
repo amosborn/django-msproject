@@ -21,8 +21,10 @@ def all_current_lots(request):
 def all_past_lots(request):
     """Return all past auction lots"""
     now = timezone.now()
-    sold_auctions = Auction.objects.filter(auction_end_time__lt=now).exclude(winning_bidder=1)
-    unsold_auctions = Auction.objects.filter(auction_end_time__lt=now, winning_bidder=1)
+    sold_auctions = Auction.objects.filter(
+                    auction_end_time__lt=now).exclude(winning_bidder=6)
+    unsold_auctions = Auction.objects.filter(
+                      auction_end_time__lt=now, winning_bidder=6)
     return render(request, 'pastlots.html', {'sold_auctions': sold_auctions,
                   'unsold_auctions': unsold_auctions})
 
@@ -44,7 +46,8 @@ def lot_detail(request, lot_id):
             auction_default = Auction()
             auction_default.lot = lot
             auction_default.number_of_bids = 0
-            auction_default.winning_bidder = get_object_or_404(User, id=1)
+            auction_default.winning_bidder = get_object_or_404(
+                                             User, username='Admin')
             auction_default.winning_bid = 0.00
             auction_default.auction_end_time = lot.auction_end_time
             auction_default.save()
@@ -65,7 +68,7 @@ def auction(request, auction_id):
             latest_bid = bid[0]
         else:
             bid_default = Bid()
-            bid_default.user = get_object_or_404(User, id=1)
+            bid_default.user = get_object_or_404(User, username='Admin')
             bid_default.auction = auction
             bid_default.bid_amount = 0.00
             bid_default.save()
@@ -73,3 +76,37 @@ def auction(request, auction_id):
 
     return render(request, 'bidform.html', {'auction': auction,
                   'latest_bid': latest_bid, 'bid_form': bid_form})
+
+
+@login_required
+def bid(request, auction_id):
+    """Place a bid"""
+
+    auction = get_object_or_404(auction_id)
+    bid = Bid.objects.filter(auction=auction_id).order_by('-bid_time')
+    current_bid = bid[0].bid_amount
+    bidder = auth.get_user(request)
+    bid_form = BidForm(request.POST, request.FILES, instance=bid)
+
+    if request.method == 'POST':
+
+        if bid_form.is_valid():
+            new_bid = bid_form.save()
+            if current_bid < bid_form.cleaned_data['bid_amount']:
+                new_bid.user = bidder
+                new_bid.auction = auction
+                new_bid.bid_amount = bid_form.cleaned_data['bid_amount']
+                new_bid.bid_time = datetime.now()
+                auction.number_of_bids += 1
+                auction.winning_bid = bid_form.cleaned_data['bid_amount']
+                auction.winning_bidder = bidder
+                new_bid.save()
+                auction.save()
+                return redirect(auction, auction_id=auction_id)
+            else:
+                return redirect(auction, auction_id=auction_id)
+
+    else:
+        bid_form = BidForm(instance=bid)
+
+    return render(request, 'bidform.html', {'bid_form': bid_form})
