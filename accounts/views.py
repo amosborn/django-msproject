@@ -1,12 +1,11 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from accounts.forms import UserLoginForm, UserRegistrationForm
+from accounts.forms import UserLoginForm, UserRegistrationForm, ProfileForm
 from lots.models import Auction
 from django.utils import timezone
-
-# Create your views here.
+from .models import Profile
 
 
 def index(request):
@@ -71,12 +70,23 @@ def registration(request):
                   {"registration_form": registration_form})
 
 
+@login_required
 def user_profile(request):
     """User's profile page"""
+
     user = User.objects.get(email=request.user.email)
     current_auctions = Auction.objects.filter(winning_bidder=request.user.pk,
                                               auction_end_time__gte=timezone.now())
     past_auctions = Auction.objects.filter(winning_bidder=request.user.pk,
-                                           auction_end_time__lt=timezone.now())                                  
-    return render(request, 'profile.html', {"profile": user,
+                                           auction_end_time__lt=timezone.now())
+    profile_form = ProfileForm(request.POST, instance=user)
+
+    """if request.method == 'POST':
+
+        if profile_form.is_valid():
+            profile_form.save()
+        else:
+            profile_form = ProfileForm(instance=profile)"""
+
+    return render(request, 'profile.html', {'profile': user, 'profile_form': profile_form,
                   'current_auctions': current_auctions, 'past_auctions': past_auctions})
