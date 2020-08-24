@@ -19,7 +19,7 @@ class Auction(models.Model):
     """Auction model"""
     lot = models.ForeignKey(Lot, on_delete=models.CASCADE)
     number_of_bids = models.IntegerField(default=0)
-    winning_bidder = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    winning_bidder = models.ForeignKey(User, on_delete=models.CASCADE, default=6)
     winning_bid = models.IntegerField(default=0)
     auction_end_time = models.DateTimeField(blank=True, null=True)
     paid = models.BooleanField(default=False)
