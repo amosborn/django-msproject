@@ -18,7 +18,7 @@
                 <p class="lot-description">{{ auction.lot.description }}</p>
                 <p>Current bid is  {{ latest_bid.bid_amount}}</p>
                 
-                <form method="POST" action="/" >
+                <form method="POST" action="{% url 'bid' auction_id=auction.pk %}">
                     {% csrf_token %}
                     {{ bid_form | as_bootstrap }}
                     <button type="submit" class="btn btn-info">Place Bid</button>
