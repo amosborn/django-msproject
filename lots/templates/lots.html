@@ -6,6 +6,15 @@
 
 {% block content %}
 
+<div class="container">
+    <div class="display">
+        <form action="{% url 'lot_search' %}" method="GET">
+            <input type="text" name="q">
+            <button type="search">Search</button>
+        </form>
+    </div>
+</div>
+
 <div class="row">
     {% for lot in lots %}
         <div class="col panel panel-default">
