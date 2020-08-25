@@ -8,12 +8,14 @@
 
 <div class="container">
     <div class="display">
-        <form action="{% url 'product_search' %}" method="GET">
-            <input type="text" name="q">
-            <button type="search">Search</button>
+        <form class="search" action="{% url 'product_search' %}" method="GET">
+            <input type="text" placeholder="Search Shop..." name="q">
+            <button type="search"><i class="fa fa-search"></i></button>
         </form>
     </div>
 </div>
+
+<br>
 
 <div class="row">
     {% for product in products %}

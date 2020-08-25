@@ -1,0 +1,40 @@
+
+/*--------------------  General*/
+
+/*-------------------- Navbar and Headings*/
+/*-------------------- Search Forms*/
+
+form.search {
+    float: center;
+    padding-bottom: 20px;
+}
+
+form.search input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+form.search button {
+  float: right;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.search button:hover {
+  background: #0b7dda;
+}
+
+/*-------------------- Product and Auction Cards*/
+/*--------------------  */
+/*--------------------  User Forms*/
+/*--------------------  Footer*/

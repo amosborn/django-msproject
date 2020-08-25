@@ -7,13 +7,14 @@
 {% block content %}
 
 <div class="container">
-    <div class="display">
-        <form action="{% url 'lot_search' %}" method="GET">
-            <input type="text" name="q">
-            <button type="search">Search</button>
+    
+        <form class="search" action="{% url 'lot_search' %}" method="GET">
+            <input type="text" placeholder="Search Auction..." name="q">
+            <button type="search"><i class="fa fa-search"></i></button>
         </form>
-    </div>
+    
 </div>
+<br>
 
 <div class="row">
     {% for lot in lots %}
