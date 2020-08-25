@@ -79,14 +79,20 @@ def user_profile(request):
                                               auction_end_time__gte=timezone.now())
     past_auctions = Auction.objects.filter(winning_bidder=request.user.pk,
                                            auction_end_time__lt=timezone.now())
-    profile_form = ProfileForm(request.POST, instance=user)
 
-    """if request.method == 'POST':
+    profile = get_object_or_404(Profile, user=request.user)
+
+    if request.method == 'POST':
+        profile_form = ProfileForm(request.POST, instance=user)
 
         if profile_form.is_valid():
             profile_form.save()
+            messages.success(request, 'Your profile was successfully updated.')
         else:
-            profile_form = ProfileForm(instance=profile)"""
+            messages.error(request, 'Unable to update profile.')
 
-    return render(request, 'profile.html', {'profile': user, 'profile_form': profile_form,
+    else:
+        profile_form = ProfileForm(instance=profile)
+
+    return render(request, 'profile.html', {'profile_form': profile_form,
                   'current_auctions': current_auctions, 'past_auctions': past_auctions})
