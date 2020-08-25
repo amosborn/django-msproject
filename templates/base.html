@@ -48,21 +48,23 @@
         </div>
     </nav>
 
-    <h1>
-        {% block page_heading %}{% endblock %}
-    </h1> 
+    <div class="container">
+        <h1>
+            {% block page_heading %}{% endblock %}
+        </h1> 
 
-    {% if messages %}
-        <div>
-            {% for message in messages %}
-                {{ message }}
-            {% endfor %}
-        </div>
-    {% endif %}
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
 
     <div class="container">
         <div class="display">
-            <form action="{% url 'search' %}" method="GET">
+            <form action="{% url 'lot_search' %}" method="GET">
                 <input type="text" name="q">
                 <button type="search">Search</button>
             </form>
