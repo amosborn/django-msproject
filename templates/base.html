@@ -63,12 +63,7 @@
     </div>
 
     <div class="container">
-        <div class="display">
-            <form action="{% url 'lot_search' %}" method="GET">
-                <input type="text" name="q">
-                <button type="search">Search</button>
-            </form>
-        </div>
+
 
         {% block content %}
         {% endblock %}
