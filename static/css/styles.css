@@ -1,7 +1,16 @@
 
 /*--------------------  General*/
 
+body {
+  min-height: 100vh;
+  position: relative;
+  margin: 0;
+  padding-bottom: 75px;
+  box-sizing: border-box;
+}
+
 /*-------------------- Navbar and Headings*/
+
 /*-------------------- Search Forms*/
 
 form.search {
@@ -35,6 +44,18 @@ form.search button:hover {
 }
 
 /*-------------------- Product and Auction Cards*/
+
 /*--------------------  */
+
 /*--------------------  User Forms*/
+
 /*--------------------  Footer*/
+
+footer {
+  position: absolute;
+  bottom: 0;
+  height: 75px;
+  width: 100%;
+  background-color: blueviolet;
+  color: whitesmoke;
+}
