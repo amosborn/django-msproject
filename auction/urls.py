@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from accounts.views import index
 from accounts import urls as accounts_urls
 from products import urls as product_urls
 from lots import urls as lot_urls
@@ -23,14 +22,13 @@ from search import urls as search_urls
 from cart import urls as cart_urls
 from checkout import urls as checkout_urls
 from home import urls as home_urls
-from products.views import all_products
-from lots.views import all_current_lots
+from home.views import index
 from django.views import static
 from .settings import MEDIA_ROOT
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', all_current_lots, name="index"),
+    url(r'^$', index, name="index"),
     url(r'^accounts/', include(accounts_urls)),
     url(r'^products/', include(product_urls)),
     url(r'^lots/', include(lot_urls)),
