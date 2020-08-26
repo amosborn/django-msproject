@@ -29,7 +29,8 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="{% url 'about' %}">About</a></li>
-                <li><a href="{% url 'past_lots' %}">Past lots</a></li>
+                <li><a href="{% url 'current_lots' %}">Current Auction</a></li>
+                <li><a href="{% url 'past_lots' %}">Past Lots</a></li>
                 <li><a href="{% url 'products' %}">Shop</a></li>
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'profile' %}">Profile</a></li>
@@ -71,7 +72,7 @@
 
     </div>
 
-     <footer>
+    <footer>
         <div class="container">
             <p>Footer</p>
         </div>
