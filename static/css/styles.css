@@ -45,7 +45,12 @@ form.search button:hover {
 
 /*-------------------- Product and Auction Cards*/
 
-/*--------------------  */
+/*--------------------  Map*/
+
+#map {
+    height: 400px;
+    width: 100%;
+}
 
 /*--------------------  User Forms*/
 
@@ -58,4 +63,7 @@ footer {
   width: 100%;
   background-color: blueviolet;
   color: whitesmoke;
+  padding-top: 20px;
 }
+
+/*-------------------- Media Queries*/
