@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.contrib.auth.models import User
-from accounts.forms import UserLoginForm, UserRegistrationForm, ProfileForm
+from accounts.forms import UserLoginForm, UserRegistrationForm, ProfileForm, \
+    UserForm
 from lots.models import Auction
 from django.utils import timezone
 from .models import Profile
@@ -71,28 +73,38 @@ def registration(request):
 
 
 @login_required
+@transaction.atomic
 def user_profile(request):
-    """User's profile page"""
 
-    user = User.objects.get(email=request.user.email)
+    """User's profile page with auction results and profile form to update"""
+
     current_auctions = Auction.objects.filter(winning_bidder=request.user.pk,
-                                              auction_end_time__gte=timezone.now())
-    past_auctions = Auction.objects.filter(winning_bidder=request.user.pk,
-                                           auction_end_time__lt=timezone.now())
-
-    profile = get_object_or_404(Profile, user=request.user)
+                                              auction_end_time__gte=timezone
+                                              .now())
+    past_paid_auctions = Auction.objects.filter(winning_bidder=request.user.pk,
+                                                auction_end_time__lt=timezone.now(),
+                                                paid=True)
+    past_unpaid_auctions = Auction.objects.filter(winning_bidder=request.user.pk,
+                                                  auction_end_time__lt=timezone.now(),
+                                                  paid=False)
 
     if request.method == 'POST':
-        profile_form = ProfileForm(request.POST, instance=user)
-
-        if profile_form.is_valid():
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
             profile_form.save()
             messages.success(request, 'Your profile was successfully updated.')
+            return redirect('profile.html')
         else:
-            messages.error(request, 'Unable to update profile.')
-
+            messages.error(request, 'Please correct the error below.')
     else:
-        profile_form = ProfileForm(instance=profile)
-
-    return render(request, 'profile.html', {'profile_form': profile_form,
-                  'current_auctions': current_auctions, 'past_auctions': past_auctions})
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'current_auctions': current_auctions,
+        'past_paid_auctions': past_paid_auctions,
+        'past_unpaid_auctions': past_unpaid_auctions
+    })
