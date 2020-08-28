@@ -10,7 +10,7 @@
 
     <p>If you already have an account, <a href="{% url 'login' %}">log in</a>.</p>
 
-    <form method="POST">
+    <form class="registration-form" method="POST">
         {% csrf_token %} 
         {{ registration_form | as_bootstrap }}
         <button type="submit">Register</button>
