@@ -8,16 +8,29 @@ def view_cart(request):
     return render(request, 'cart.html')
 
 
-def add_to_cart(request, id):
+def add_product_to_cart(request, product_id):
     """Add a quantity of a product to the cart"""
     quantity = int(request.POST.get('quantity'))
-
     cart = request.session.get('cart', {})
-    if id in cart:
-        if cart[id] is not None:
-            cart[id] = int(cart[id]) + quantity
+    if product_id in cart:
+        if cart[product_id] is not None:
+            cart[product_id] = int(cart[product_id]) + quantity
     else:
-        cart[id] = cart.get(id, quantity)
+        cart[product_id] = cart.get(product_id, quantity)
+
+    request.session['cart'] = cart
+    return redirect(reverse('products'))
+
+
+def add_auction_to_cart(request, auction_id):
+    """Add the auction you have won to the cart"""
+    quantity = int(request.POST.get('quantity'))
+    cart = request.session.get('cart', {})
+    if auction_id in cart:
+        if cart[auction_id] is not None:
+            cart[auction_id] = int(cart[auction_id]) + quantity
+    else:
+        cart[auction_id] = cart.get(auction_id, quantity)
 
     request.session['cart'] = cart
     return redirect(reverse('index'))
