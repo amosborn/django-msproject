@@ -46,6 +46,12 @@ class UserRegistrationForm(UserCreationForm):
         return password2
 
 
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'email')
+
+
 class ProfileForm(forms.ModelForm):
 
     class Meta:
