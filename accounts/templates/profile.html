@@ -26,7 +26,7 @@
         {% endfor %}
 
         <h4>Past auctions you have won:</h4>
-        {% for auction in past_auctions %}
+        {% for auction in past_unpaid_auctions %}
         <div class="col panel panel-default">
             <div class="panel-body">
             
@@ -34,15 +34,21 @@
                 <h3>{{ auction.lot.name }}</h3>
                 <p>Winning bid: {{ auction.winning_bid }}</p>
                 <p>Winning bidder: {{ auction.winning_bidder }} </p>
-                <form method="post" action="{% url 'add_auction_to_cart' auction.id  %}">
-                    {% csrf_token %}
-                    <div class="input-group">
-                        <input name="quantity" type="number" min="1" max="1" class="form-control" placeholder="Quantity">
-                        <span class="input-group-btn">
-                            <button class="btn btn-success" type="submit">Add</button>
-                        </span>
-                    </div>
-                </form>
+                <p><a href="{% url 'checkout_auction' auction.id %}" class="btn btn-success" role="button"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>Checkout</a></p>
+
+            </div>
+        </div>
+        {% endfor %}
+
+        {% for auction in past_paid_auctions %}
+        <div class="col panel panel-default">
+            <div class="panel-body">
+            
+                <div class="lot-image" style="background-image: url('{{ MEDIA_URL }}{{ auction.lot.image }}')"></div>
+                <h3>{{ auction.lot.name }}</h3>
+                <p>Winning bid: {{ auction.winning_bid }}</p>
+                <p>Winning bidder: {{ auction.winning_bidder }} </p>
+
             </div>
         </div>
         {% endfor %}
@@ -50,9 +56,9 @@
 
     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-6">
         <h4>Delivery Information:</h4>
-        <p>{{ user.email }}</p>
         <form class="" action="{% url 'profile' %}" method="POST">
             {% csrf_token %}
+            {{ user_form | as_bootstrap }}
             {{ profile_form | as_bootstrap }}
             <button type="submit" class="btn">Update</button>
         </form>
