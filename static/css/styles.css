@@ -11,6 +11,9 @@ body {
 
 /*-------------------- Navbar and Headings*/
 
+/*-------------------- Homepage*/
+
+
 /*-------------------- Search Forms*/
 
 form.search {
@@ -45,6 +48,17 @@ form.search button:hover {
 
 /*-------------------- Product and Auction Cards*/
 
+
+.product-image, .lot-image {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 300px;
+    margin: 0 auto;
+}
+
+
 /*--------------------  Map*/
 
 #map {
@@ -53,6 +67,7 @@ form.search button:hover {
 }
 
 /*--------------------  User Forms*/
+
 
 /*--------------------  Footer*/
 
@@ -67,3 +82,12 @@ footer {
 }
 
 /*-------------------- Media Queries*/
+
+@media(min-width: 992px) {
+
+    .login-form, .registration-form {
+        padding-top: 30px;
+        margin: 0 auto;
+        max-width: 50%;
+    }
+}
