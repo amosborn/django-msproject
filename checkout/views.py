@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.decorators import login_required
 from .forms import OrderForm, MakePaymentForm
 from .models import OrderLineItem
+from accounts.models import Profile
 from products.models import Product
 from lots.models import Auction
 import stripe
@@ -16,8 +17,23 @@ stripe.api_key = settings.STRIPE_SECRET
 
 @login_required()
 def checkout_cart(request):
-    order_form = OrderForm(request.POST)
+    profile = Profile.objects.get(user=request.user)
     payment_form = MakePaymentForm(request.POST)
+    if profile:
+        order_form = OrderForm(initial={
+            'full_name': profile.full_name,
+            'email': profile.user.email,
+            'phone_number': profile.phone_number,
+            'country': profile.country,
+            'postcode': profile.postcode,
+            'town_or_city': profile.town_or_city,
+            'street_address1': profile.street_address1,
+            'street_address2': profile.street_address2,
+            'county': profile.county,
+        })
+    else:
+        order_form = OrderForm(request.POST)
+
     if request.method == 'POST':
 
         if order_form.is_valid() and payment_form.is_valid():
