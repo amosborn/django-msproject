@@ -7,23 +7,27 @@
 {% block content %}
 
 <div class="row">
-        <div class="col panel panel-default">
-            <div class="panel-body">
-            
-                <div class="lot-image" style="background-image: url('{{ MEDIA_URL }}{{ lot.image }}')"></div>
-                <p>Lot: {{ lot.pk }}</p>
-                <h3>{{ lot.name }}</h3>
-                <p class="lot-description">{{ lot.description }}</p>
+    <div class="col panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <div class="lot-image" style="background-image: url('{{ MEDIA_URL }}{{ lot.image }}')"></div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <p>Lot: {{ lot.pk }}</p>
+                    <h3>{{ lot.name }}</h3>
+                    <p class="lot-description">{{ lot.description }}</p>
 
-                {% if user.is_authenticated %}
-                    <p></p>
-                    <p><a href="{% url 'auction' lot.id %}"  class="btn btn-default">Bid</a></p>
-                {% else %}
-                    <p>Log in to bid</p>
-                {% endif %}
+                    {% if user.is_authenticated %}
+                        <p></p>
+                        <p><a href="{% url 'auction' lot.id %}"  class="btn btn-default">Bid</a></p>
+                    {% else %}
+                        <p>Log in to bid</p>
+                    {% endif %}
 
+                </div>
             </div>
         </div>
+    </div>
 </div>
-
 {% endblock %}
