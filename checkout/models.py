@@ -7,6 +7,7 @@ from lots.models import Auction
 
 class Order(models.Model):
     full_name = models.CharField(max_length=40, blank=False)
+    email = models.EmailField(max_length=254, null=True, blank=False)
     phone_number = models.CharField(max_length=20, blank=False)
     country = models.CharField(max_length=40, blank=False)
     postcode = models.CharField(max_length=20, blank=True)
