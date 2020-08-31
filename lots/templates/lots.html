@@ -1,10 +1,22 @@
 {% extends 'base.html' %}
 
+{% load static from staticfiles %}
+
 {% block page_title %}All Current Lots Page{% endblock %}
 
-{% block page_heading %}All Current Lots{% endblock %}
+{% block page_heading %}Current Lots{% endblock %}
+
+{% block head_js %}
+
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+{% endblock %}
 
 {% block content %}
+
+<div>
+    <p>Current Auction ends: </p>
+    <p id="countdown"></p>
+</div>
 
 <div class="container">
     
@@ -26,7 +38,8 @@
                 <h3>{{ lot.name }}</h3>
                 <p class="lot-description">{{ lot.description }}</p>
                 <p><a href="{% url 'lot_detail' lot.id %}"  class="btn btn-default">Lot detail</a></p>
-
+                <br>
+                
             </div>
         </div>
     {% endfor %}
