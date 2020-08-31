@@ -13,10 +13,12 @@
     {% block head_js %}
     {% endblock head_js %}
     <title>{% block page_title %}{% endblock %}</title>
+    {% block additional_styles %}
+    {% endblock additional_styles %}
 </head>
 
 <body>
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default navbar-dark bg-dark">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
@@ -24,10 +26,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Logo</a>
+            <a class="navbar-brand navbar-logo" href="/">LOGO</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav navbar-right">
                 <li><a href="{% url 'about' %}">About</a></li>
                 <li><a href="{% url 'current_lots' %}">Current Auction</a></li>
                 <li><a href="{% url 'past_lots' %}">Past Lots</a></li>
@@ -40,7 +42,7 @@
                     <li><a href="{% url 'registration' %}">Register</a></li>
                 {% endif %}
                 <li>
-                    <a href="{% url 'view_cart' %}">Cart
+                    <a href="{% url 'view_cart' %}" <i class="fa fa-shopping-basket fa-lg">
                         {% if product_count > 0 %}
                         <label class="badge badge-warning">{{ product_count }}</label>
                         {% endif %}
@@ -49,6 +51,8 @@
             </ul>
         </div>
     </nav>
+
+<div class="background">
 
     <div class="container">
         <h1>
@@ -66,15 +70,26 @@
 
     <div class="container">
 
-
         {% block content %}
         {% endblock %}
 
     </div>
+</div>
 
     <footer>
-        <div class="container">
-            <p>Footer</p>
+        <div class="container footer-style">
+            <div class="row">
+                <div class="col-xs-6 footer-header">
+                    <p>Follow us: </p>
+                </div>
+                <div class="col-xs-6">
+                <ul class="list-inline fa-icons">
+                    <li><a href="https://facebook.com" target="_blank"><i class="fa fa-facebook fa-lg"></i></a></li>
+                    <li><a href="https://twitter.com" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></li>
+                    <li><a href="https://instagram.com" target="_blank"><i class="fa fa-instagram fa-lg"></i></a></li>
+                </ul>
+                </div>
+            </div>
         </div>
     </footer>
     
