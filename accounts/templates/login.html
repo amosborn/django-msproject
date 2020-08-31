@@ -2,6 +2,15 @@
 
 {% load bootstrap_tags %}
 
+{% block additional_styles %}
+    <style>
+        .background {
+            background-color: whitesmoke;
+            height: 100vh;
+        }
+    </style>
+{% endblock additional_styles %}
+
 {% block page_title %}Login Page{% endblock %}
 
 {% block page_heading %}Login{% endblock %}
@@ -12,6 +21,7 @@
         {{ login_form | as_bootstrap }}
         <button type="submit">Login</button>
     </form>
+    <br>
     <p>
         <a href="{% url 'password_reset' %}">Forgot password?</a>
     </p>
