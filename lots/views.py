@@ -29,10 +29,6 @@ def all_past_lots(request):
                   'unsold_auctions': unsold_auctions})
 
 
-def past_lot_detail(request, pk):
-    """Return individual expired lot with auction results"""
-
-
 def lot_detail(request, lot_id):
     """Render lot detail page and create auction with default values"""
 
@@ -83,30 +79,30 @@ def bid(request, auction_id):
     """Place a bid"""
 
     auction = get_object_or_404(auction_id)
-    bid = Bid.objects.filter(auction=auction_id).order_by('-bid_time')
-    current_bid = bid[0].bid_amount
+    bids = Bid.objects.filter(auction=auction_id).order_by('-bid_time')
+    current_bid = auction.winning_bid
     bidder = auth.get_user(request)
-    bid_form = BidForm(request.POST, request.FILES, instance=bid)
+    bid_form = BidForm(request.POST, request.FILES, instance=bids)
 
     if request.method == 'POST':
 
         if bid_form.is_valid():
-            new_bid = bid_form.save()
-            if current_bid < bid_form.cleaned_data['bid_amount']:
-                new_bid.user = bidder
-                new_bid.auction = auction
-                new_bid.bid_amount = bid_form.cleaned_data['bid_amount']
-                new_bid.bid_time = datetime.now()
+            bid = bid_form.save()
+            if current_bid < bid_form.bid_amount:
+                bid.user = bidder
+                bid.auction = auction
+                bid.bid_amount = bid_form.bid_amount
+                bid.bid_time = datetime.now()
                 auction.number_of_bids += 1
-                auction.winning_bid = bid_form.cleaned_data['bid_amount']
+                auction.winning_bid = bid_form.bid_amount
                 auction.winning_bidder = bidder
-                new_bid.save()
+                bid.save()
                 auction.save()
                 return redirect(auction, auction_id=auction_id)
             else:
                 return redirect(auction, auction_id=auction_id)
 
-    else:
-        bid_form = BidForm(instance=bid)
+        else:
+            bid_form = BidForm(instance=bid)
 
     return render(request, 'bidform.html', {'bid_form': bid_form})
