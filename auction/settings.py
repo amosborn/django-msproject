@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import env
 import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -87,6 +88,7 @@ WSGI_APPLICATION = 'auction.wsgi.application'
 if "DATABASE_URL" in os.environ:
     DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
 else:
+    print('DATABASE_URL not found, using SQLite instead.')
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
