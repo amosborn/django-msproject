@@ -13,8 +13,8 @@
 
 {% block content %}
 
-<div>
-    <p>Current Auction ends: </p>
+<div class="container">
+    <h3>Current Auction ends: 30/09/2020</h3>
     <p id="countdown"></p>
 </div>
 
@@ -36,7 +36,7 @@
                 <div class="lot-image" style="background-image: url('{{ MEDIA_URL }}{{ lot.image }}')"></div>
                 <p>Lot: {{ lot.pk }}</p>
                 <h3>{{ lot.name }}</h3>
-                <p class="lot-description">{{ lot.description }}</p>
+                <p class="lot-description">{{ lot.description|truncatewords:30 }}</p>
                 <p><a href="{% url 'lot_detail' lot.id %}"  class="btn btn-default">Lot detail</a></p>
                 <br>
                 
