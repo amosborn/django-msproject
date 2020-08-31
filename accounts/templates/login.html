@@ -16,6 +16,7 @@
 {% block page_heading %}Login{% endblock %}
 
 {% block content %}
+<div class="container">
     <form class="login-form" method="POST">
         {% csrf_token %} 
         {{ login_form | as_bootstrap }}
@@ -25,4 +26,5 @@
     <p>
         <a href="{% url 'password_reset' %}">Forgot password?</a>
     </p>
+</div>
 {% endblock %}
