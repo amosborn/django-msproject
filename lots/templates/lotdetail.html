@@ -22,7 +22,8 @@
                         <p></p>
                         <p><a href="{% url 'auction' lot.id %}"  class="btn btn-default">Bid</a></p>
                     {% else %}
-                        <p>Log in to bid</p>
+                        <p>Log in to Bid</p>
+                        <p><a href="{% url 'login' %}"  class="btn btn-default">Login</a></p>
                     {% endif %}
 
                 </div>
