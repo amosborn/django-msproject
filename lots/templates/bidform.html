@@ -21,11 +21,14 @@
                     <p class="lot-description">{{ auction.lot.description }}</p>
                     <p>Current bid: <span class="glyphicon glyphicon-euro" aria-hidden="true"></span>  {{ latest_bid.bid_amount}}</p>
                     
+                    <h5>Enter a bid higher than the current bid:</h5>
+
                     <form method="POST" action="{% url 'bid' auction_id=auction.pk %}">
                         {% csrf_token %}
                         {{ bid_form | as_bootstrap }}
                         <button type="submit" class="btn btn-info">Place Bid</button>
                     </form>
+                    <br>
                 </div>
             </div>
         </div>
