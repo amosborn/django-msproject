@@ -1,18 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Roboto:wght@300;400;700&display=swap");
 
 /*--------------------  General*/
 
 body {
+  font-family: 'Roboto', 'sans serif';
   min-height: 100vh;
   position: relative;
   margin: 0;
-  padding-bottom: 75px;
   box-sizing: border-box;
 }
 
 /*-------------------- Navbar and Headings*/
 
+.navbar {
+    margin-bottom: 0px;
+    background: rgb(12, 12, 12);
+    color: white;
+}
+
+.navbar-logo {
+    font-family: 'Raleway', 'sans serif';
+}
+
 /*-------------------- Homepage*/
 
+
+.homeheader{
+    padding-top: 30px;
+    color:black;
+    font-size: 300px;
+}
+
+.home-image {
+    height: 60vh;
+}
+
+.home-links {
+    height: 40vh;
+}
+
+
+.background {
+    height: 100vh;
+    width: 100%;
+    background: url('/static/img/gallery.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    display: flex;
+    position: relative;
+}
+
+/*-------------------- About page*/
 
 /*-------------------- Search Forms*/
 
@@ -27,7 +67,7 @@ form.search input[type=text] {
   border: 1px solid grey;
   float: left;
   width: 80%;
-  background: #f1f1f1;
+  background:whitesmoke;
 }
 
 form.search button {
@@ -58,6 +98,11 @@ form.search button:hover {
     margin: 0 auto;
 }
 
+.panel-default {
+    border-color: transparent;
+    padding: 0 20px;
+}
+
 
 /*--------------------  Map*/
 
@@ -74,11 +119,18 @@ form.search button:hover {
 footer {
   position: absolute;
   bottom: 0;
-  height: 75px;
   width: 100%;
-  background-color: blueviolet;
+  background-color: #AE96D6;
   color: whitesmoke;
   padding-top: 20px;
+}
+
+.footer-header {
+    text-align: right;
+}
+
+i.fa{
+    color: whitesmoke;
 }
 
 /*-------------------- Media Queries*/
