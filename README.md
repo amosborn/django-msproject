@@ -5,6 +5,14 @@
 This e-commerce website is created for the Code Institute Milestone 4 project, using Django 1.11.
 The site is for an art gallery which sells works of art as well as periodically holding auctions.
 When testing this app, the following details can be used:
+To log in to admin panel:
+* Username - Admin
+* Password - testpw123
+To test payment:
+* Card number - 4242424242424242
+* CVV - any three digits
+* Expiry date - any future month and year
+As the bidding function is not complete, the database has some lots saved as auction wins to test payment, as well as the products from the shop.
 
 
 ## User Experience (UX)
@@ -234,6 +242,9 @@ The app was tested on different browsers: Chrome, Edge and Firefox.
 
 * Import env in settings.py is unused and fails Travis integrated testing. However when I remove it the app won't run, with SECRET_KEY error in settings.py, which is fixed by reinstating import env.
 * Some Python lines of code too long, but unsure how to split them to the next line.  
+* Tried to add auction wins to cart with another context, but a product with the same id kept being added at the same time, and vice versa when adding a product.
+  I decided to have separate checkouts for products and auctions, as this probably wouldn't inconvenience a user too much.
+
 
 ## Deployment
 
